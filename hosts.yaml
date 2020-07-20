@@ -1,0 +1,122 @@
+---
+
+R1:
+  hostname: 192.168.31.101
+  groups:
+    - cisco_group
+  data:
+    bgp_configure:
+      router:
+        Cisco-IOS-XE-bgp:bgp:
+        - id: 65000
+          bgp:
+            log-neighbor-changes: true
+          neighbor:
+          - id: 2.2.2.2
+            remote-as: 65000
+            password:
+              text: cisco
+            timers:
+              keepalive-interval: 5
+              holdtime: 15
+            update-source:
+              Loopback: 0
+          - id: 3.3.3.3
+            remote-as: 65000
+            password:
+              text: cisco
+            timers:
+              keepalive-interval: 5
+              holdtime: 15
+            update-source:
+              Loopback: 0
+
+    ntp_configure:
+      ntp:
+        Cisco-IOS-XE-ntp:server:
+          server-list:
+          - ip-address: 1.1.1.1
+          - ip-address: 11.11.11.11
+          - ip-address: 101.101.101.101
+
+R2:
+  hostname: 192.168.31.102
+  groups:
+    - cisco_group
+  data:
+    bgp_configure:
+      router:
+        Cisco-IOS-XE-bgp:bgp:
+        - id: 65000
+          bgp:
+            log-neighbor-changes: true
+          neighbor:
+          - id: 1.1.1.1
+            remote-as: 65000
+            password:
+              text: cisco
+            timers:
+              keepalive-interval: 5
+              holdtime: 15
+            update-source:
+              Loopback: 0
+          - id: 3.3.3.3
+            remote-as: 65000
+            password:
+              text: cisco
+            timers:
+              keepalive-interval: 5
+              holdtime: 15
+            update-source:
+              Loopback: 0
+
+
+    ntp_configure:
+      ntp:
+        Cisco-IOS-XE-ntp:server:
+          server-list:
+          - ip-address: 2.2.2.2
+          - ip-address: 22.22.22.22
+
+R3:
+  hostname: 192.168.31.103
+  groups:
+    - cisco_group
+  data:
+    bgp_configure:
+      router:
+        Cisco-IOS-XE-bgp:bgp:
+        - id: 65000
+          bgp:
+            log-neighbor-changes: true
+          neighbor:
+          - id: 1.1.1.1
+            remote-as: 65000
+            password:
+              text: cisco
+            timers:
+              keepalive-interval: 5
+              holdtime: 15
+            update-source:
+              Loopback: 0
+          - id: 2.2.2.2
+            remote-as: 65000
+            password:
+              text: cisco
+            timers:
+              keepalive-interval: 5
+              holdtime: 15
+            update-source:
+              Loopback: 0
+
+    ntp_configure:
+      ntp:
+        Cisco-IOS-XE-ntp:server:
+          server-list:
+          - ip-address: 3.3.3.3
+          - ip-address: 33.33.33.33
+
+    banner_configure:
+      banner:
+        motd:
+          banner: "& R3 RESTCONF BANNER &"
